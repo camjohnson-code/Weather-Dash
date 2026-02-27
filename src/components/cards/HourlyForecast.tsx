@@ -5,10 +5,10 @@ import WeatherIcon from '../WeatherIcon.tsx';
 import type { Coords } from '../../types.ts';
 
 type Props = {
-  coords: Coords
+  coords: Coords;
 };
 
-export default function HourlyForecast({coords}: Props) {
+export default function HourlyForecast({ coords }: Props) {
   const { data } = useSuspenseQuery({
     queryKey: ['weather', coords],
     queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
@@ -17,16 +17,16 @@ export default function HourlyForecast({coords}: Props) {
   return (
     <Card title='Hourly Forecast (48 hours)' childrenClassName='flex gap-6 overflow-x-scroll'>
       {data.hourly.map((hour) => (
-        <div className='flex flex-col gap-2 items-center p-2' key={hour.dt}>
-          <p className='whitespace-nowrap'>
+        <div className='flex flex-col gap-2 items-center p-2 2xl:justify-between' key={hour.dt}>
+          <p className='whitespace-nowrap 2xl:scale-110'>
             {new Date(hour.dt * 1000).toLocaleTimeString(undefined, {
               hour: 'numeric',
               hour12: true,
               minute: '2-digit',
             })}
           </p>
-          <WeatherIcon src={hour.weather[0].icon} />
-          <p>{Math.round(hour.temp)}°F</p>
+          <WeatherIcon className='2xl:size-10' src={hour.weather[0].icon} />
+          <p className='2xl:scale-110'>{Math.round(hour.temp)}°F</p>
         </div>
       ))}
     </Card>

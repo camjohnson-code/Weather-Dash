@@ -8,7 +8,7 @@ type Props = {
 export default function TileLayerDropdown({ tileLayer, onTileLayerChange }: Props) {
   return (
     <Select value={tileLayer} onValueChange={onTileLayerChange}>
-      <SelectTrigger className='w-45'>
+      <SelectTrigger className='w-full xs:w-[180px]'>
         <SelectValue placeholder='Select map' />
       </SelectTrigger>
       <SelectContent className='z-1100'>
