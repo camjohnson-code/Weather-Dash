@@ -35,7 +35,7 @@ export default function Map({ coords, onMapClick, tileLayer }: Props) {
       zoom={13}
       maxZoom={15}
       minZoom={7}
-      style={{ width: '1000px', height: '500px' }}
+      style={{ width: '100%', height: '100%' }}
     >
       <MapCenter coords={coords} />
       <MapClick onMapClick={onMapClick} />

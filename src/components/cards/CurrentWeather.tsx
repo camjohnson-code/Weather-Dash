@@ -8,14 +8,18 @@ type Props = {
   coords: Coords;
 };
 
-export default function CurrentWeather({coords}: Props) {
+export default function CurrentWeather({ coords }: Props) {
   const { data } = useSuspenseQuery({
     queryKey: ['weather', coords],
     queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
 
   return (
-    <Card title='Current Weather' childrenClassName='flex flex-col items-center gap-6'>
+    <Card
+      title='Current Weather'
+      childrenClassName='flex flex-col items-center gap-6 2xl:justify-between'
+      className='md:pb-11'
+    >
       <div className='flex flex-col gap-2 items-center'>
         <h2 className='text-6xl font-semibold text-center'>{Math.round(data.current.temp)}°F</h2>
         <WeatherIcon className='size-14' src={data.current.weather[0].icon} />

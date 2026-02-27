@@ -9,7 +9,7 @@ type Props = {
 export default function LocationDropdown({ value, onLocationChange }: Props) {
   return (
     <Select value={value} onValueChange={onLocationChange}>
-      <SelectTrigger className='w-45'>
+      <SelectTrigger className='w-full xs:w-[180px]'>
         <SelectValue placeholder='Select branch' />
       </SelectTrigger>
       <SelectContent className='z-1100'>
