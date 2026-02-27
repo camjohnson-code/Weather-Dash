@@ -9,8 +9,11 @@ import Cloud from '/src/assets/cloud.svg?react';
 import Pressure from '/src/assets/pressure.svg?react';
 import UV from '/src/assets/uv.svg?react';
 import UpArrow from '/src/assets/uparrow.svg?react';
+import type { Coords } from '../../types';
 
-type Props = {};
+type Props = {
+  coords: Coords;
+};
 
 const rows = [
   {
@@ -45,10 +48,10 @@ const rows = [
   },
 ] as const;
 
-export default function AdditionalInfo({}: Props) {
+export default function AdditionalInfo({ coords }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ['weather'],
-    queryFn: () => getWeather({ lat: 33.44, lon: -94.04 }),
+    queryKey: ['weather', coords],
+    queryFn: () => getWeather({ lat: coords.lat, lon: coords.lon }),
   });
 
   return (
