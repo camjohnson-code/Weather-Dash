@@ -1,26 +1,47 @@
-import { useQuery } from '@tanstack/react-query';
-import { getWeather } from './api.ts';
+import { useState } from 'react';
 import DailyForecast from './components/cards/DailyForecast.tsx';
 import HourlyForecast from './components/cards/HourlyForecast.tsx';
 import CurrentWeather from './components/cards/CurrentWeather.tsx';
 import AdditionalInfo from './components/cards/AdditionalInfo.tsx';
+import Map from './components/Map.tsx';
+import type { Coords } from './types.ts';
+import LocationDropdown from './components/dropdowns/LocationDropdown.tsx';
+import { branches } from './data/branches.ts';
+import TileLayerDropdown from './components/dropdowns/TileLayerDropdown.tsx';
 
 function App() {
-  const { data, isFetching, isError, error } = useQuery({
-    queryKey: ['weather'],
-    queryFn: () => getWeather({ lat: 33.44, lon: -94.04 }),
-  });
+  const [coords, setCoords] = useState<Coords>({ lat: 39.5524682, lon: -104.8736162 });
+  const [tileLayer, setTileLayer] = useState<string>('clouds_new');
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+  const onMapClick = (lat: number, lon: number): void => {
+    setCoords({ lat, lon });
+  };
+
+  const onLocationChange = (location: string): void => {
+    const branch = branches.find((b) => b.name === location);
+
+    if (branch) setCoords({ lat: branch.lat, lon: branch.lon });
+  };
+
+  const selectedBranch = branches.find((b) => b.lat === coords.lat && b.lon === coords.lon);
 
   return (
     <div className='flex flex-col gap-8'>
-      <CurrentWeather />
-      <HourlyForecast />
-      <DailyForecast />
-      <AdditionalInfo />
+      <div className='flex gap-4'>
+        <div className='flex gap-2 items-center'>
+          <h2 className='font-semibold text-xl'>Location</h2>
+          <LocationDropdown value={selectedBranch?.name} onLocationChange={onLocationChange} />
+        </div>
+        <div className='flex gap-2 items-center'>
+          <h2 className='font-semibold text-xl'>Map Type</h2>
+          <TileLayerDropdown tileLayer={tileLayer} onTileLayerChange={setTileLayer} />
+        </div>
+      </div>
+      <Map coords={coords} onMapClick={onMapClick} tileLayer={tileLayer} />
+      <CurrentWeather coords={coords} />
+      <HourlyForecast coords={coords} />
+      <DailyForecast coords={coords} />
+      <AdditionalInfo coords={coords} />
     </div>
   );
 }
