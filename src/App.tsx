@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import DailyForecast from './components/cards/DailyForecast.tsx';
 import HourlyForecast from './components/cards/HourlyForecast.tsx';
 import CurrentWeather from './components/cards/CurrentWeather.tsx';
@@ -8,6 +8,10 @@ import type { Coords } from './types.ts';
 import LocationDropdown from './components/dropdowns/LocationDropdown.tsx';
 import { branches } from './data/branches.ts';
 import TileLayerDropdown from './components/dropdowns/TileLayerDropdown.tsx';
+import CurrentWeatherSkeleton from './components/skeletons/CurrentSkeleton.tsx';
+import DailyForecastSkeleton from './components/skeletons/DailySkeleton.tsx';
+import HourlyForecastSkeleton from './components/skeletons/HourlySkeleton.tsx';
+import AdditionalInfoSkeleton from './components/skeletons/AdditionalInfoSkeleton.tsx';
 
 function App() {
   const [coords, setCoords] = useState<Coords>({ lat: 39.5524682, lon: -104.8736162 });
@@ -38,10 +42,18 @@ function App() {
         </div>
       </div>
       <Map coords={coords} onMapClick={onMapClick} tileLayer={tileLayer} />
-      <CurrentWeather coords={coords} />
-      <HourlyForecast coords={coords} />
-      <DailyForecast coords={coords} />
-      <AdditionalInfo coords={coords} />
+      <Suspense fallback={<CurrentWeatherSkeleton />}>
+        <CurrentWeather coords={coords} />
+      </Suspense>
+      <Suspense fallback={<HourlyForecastSkeleton />}>
+        <HourlyForecast coords={coords} />
+      </Suspense>
+      <Suspense fallback={<DailyForecastSkeleton />}>
+        <DailyForecast coords={coords} />
+      </Suspense>
+      <Suspense fallback={<AdditionalInfoSkeleton />}>
+        <AdditionalInfo coords={coords} />
+      </Suspense>
     </div>
   );
 }
