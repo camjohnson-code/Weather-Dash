@@ -12,17 +12,17 @@ export default function SidebarSkeleton({}: Props) {
         childrenClassName='flex flex-col gap-3'
       >
         <div className='flex justify-between'>
-          <Skeleton className='h-7 w-12 bg-sidebar' />
-          <Skeleton className='h-7 w-12 bg-sidebar' />
+          <Skeleton className='h-7 w-12 dark:bg-sidebar' />
+          <Skeleton className='h-7 w-12 dark:bg-sidebar' />
         </div>
-        <Skeleton className='w-full h-1.5 bg-sidebar' />
+        <Skeleton className='w-full h-1.5 dark:bg-sidebar' />
         <div className='flex justify-between text-sx'>
-          <Skeleton className='h-4 w-2 bg-sidebar' />
-          <Skeleton className='h-4 w-2 bg-sidebar' />
+          <Skeleton className='h-4 w-2 dark:bg-sidebar' />
+          <Skeleton className='h-4 w-2 dark:bg-sidebar' />
         </div>
         <div className='flex justify-between'>
           {Array.from({ length: 5 }).map((_, index) => (
-            <Skeleton key={index} className='h-6 w-15 bg-sidebar' />
+            <Skeleton key={index} className='h-6 w-15 dark:bg-sidebar' />
           ))}
         </div>
       </Card>
