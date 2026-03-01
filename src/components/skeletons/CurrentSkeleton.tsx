@@ -1,8 +1,6 @@
 import Card from '../cards/Card.tsx';
 import { Skeleton } from '../ui/skeleton.tsx';
 
-type Props = {};
-
 export default function CurrentWeatherSkeleton() {
   return (
     <Card
