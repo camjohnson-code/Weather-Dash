@@ -8,6 +8,8 @@ import ThemeProvider from './components/ThemeProvider.tsx';
 
 const queryClient = new QueryClient();
 
+console.log('API Key:', import.meta.env.VITE_OPENWEATHER_API_KEY);
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
