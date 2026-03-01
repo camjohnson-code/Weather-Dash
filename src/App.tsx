@@ -15,6 +15,7 @@ import AdditionalInfoSkeleton from './components/skeletons/AdditionalInfoSkeleto
 import SidePanel from './components/SidePanel.tsx';
 import Hamburger from '/src/assets/hamburger.svg?react';
 import MobileHeader from './components/MobileHeader.tsx';
+import ThemeToggle from './components/ThemeToggle.tsx';
 
 function App() {
   const [coords, setCoords] = useState<Coords>({ lat: 39.5524682, lon: -104.8736162 });
@@ -46,9 +47,14 @@ function App() {
             <h2 className='font-semibold text-xl whitespace-nowrap'>Map Type</h2>
             <TileLayerDropdown tileLayer={tileLayer} onTileLayerChange={setTileLayer} />
           </div>
-          <button onClick={() => setIsSidePanelOpen(true)} className='hidden xs:block'>
-            <Hamburger className='size-6 invert cursor-pointer ml-auto lg:hidden' />
-          </button>
+          <div className='ml-auto flex items-center gap-4'>
+            <div className='hidden xs:block'>
+              <ThemeToggle />
+            </div>
+            <button onClick={() => setIsSidePanelOpen(true)} className='hidden xs:block'>
+              <Hamburger className='size-6 cursor-pointer lg:hidden' />
+            </button>
+          </div>
         </div>
         <div className='grid grid-cols-1 2xl:flex-1 2xl:min-h-0 md:grid-cols-2 2xl:grid-cols-4 2xl:grid-rows-4 gap-4'>
           <div className='relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2 order-1'>
